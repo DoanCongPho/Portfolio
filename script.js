@@ -52,3 +52,33 @@ window.addEventListener("scroll", () => {
   });
 });
 
+
+
+
+
+function animateSkillsOnScroll() {
+  const skillsSection = document.querySelector('#skills');
+  const progressBars = document.querySelectorAll('#skills .progress');
+
+  const sectionTop = skillsSection.getBoundingClientRect().top;
+  const sectionBottom = skillsSection.getBoundingClientRect().bottom;
+  const screenHeight = window.innerHeight;
+
+  if (sectionTop < screenHeight && sectionBottom > 100) {
+    // Nếu hiện trên màn hình thì animate
+    progressBars.forEach(bar => {
+      const percent = bar.getAttribute('data-progress');
+      bar.style.width = percent;
+      bar.classList.remove('reset'); // bỏ reset để chạy
+    });
+  } else {
+    // Nếu ra khỏi màn hình thì reset lại
+    progressBars.forEach(bar => {
+      bar.classList.add('reset');
+    });
+  }
+}
+
+window.addEventListener('scroll', animateSkillsOnScroll);
+
+
